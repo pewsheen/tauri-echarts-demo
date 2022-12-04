@@ -8,8 +8,6 @@ export default {
     onMounted(() => {
       const myChart = mountChart(document.getElementById('main'));
 
-      console.log(myChart);
-
       window.onresize = () => {
         myChart.resize();
       };
@@ -19,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="chart-container">
     <div id="main" class="chart"></div>
   </div>
 </template>
@@ -37,7 +35,7 @@ body {
   width: 100%;
   padding: 20px;
 }
-.container {
+.chart-container {
   height: 600px;
   width: 600px;
   border-radius: 5px;
