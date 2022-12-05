@@ -3,18 +3,14 @@ import * as echarts from 'echarts';
 export function mountChart(element) {
   const myChart = echarts.init(element);
 
-  const dataURL = '/fake-nebula.bin';
-
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', dataURL, true);
-  xhr.responseType = 'arraybuffer';
+  const dataURL = 'https://plot.localhost/fake-nebula.bin';
 
   myChart.showLoading();
 
-  xhr.onload = function (e) {
+  fetch(dataURL).then(r => r.arrayBuffer()).then(data =>{
     myChart.hideLoading();
 
-    const rawData = new Float32Array(this.response);
+    const rawData = new Float32Array(data);
 
     const option = {
       title: {
@@ -79,10 +75,37 @@ export function mountChart(element) {
     };
 
     myChart.setOption(option);
-  };
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-  xhr.send();
+  });
+
+  return myChart;
+}
+
+export function updateChart(myChart) {
+
+  const dataURL = 'https://plot.localhost/fake-nebula.bin';
+
+  fetch(dataURL).then(r => r.arrayBuffer()).then(data =>{
+    const rawData = new Float32Array(data);
+
+    const option = {
+      series: [
+        {
+          type: 'scatter',
+          data: rawData,
+          dimensions: ['x', 'y'],
+          symbolSize: 3,
+          itemStyle: {
+            opacity: 1,
+          },
+          blendMode: 'source-over',
+          large: true,
+          largeThreshold: 500,
+        },
+      ],
+    };
+
+    myChart.setOption(option);
+  });
 
   return myChart;
 }
