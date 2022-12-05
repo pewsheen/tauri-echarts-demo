@@ -3,12 +3,14 @@ import * as echarts from 'echarts';
 export function mountChart(element) {
   const myChart = echarts.init(element);
 
-  const dataURL = 'https://plot.localhost/fake-nebula.bin';
+  // const dataURL = 'https://plot.localhost/fake-nebula.bin';
+  const dataURL = 'plot://fake-nebula.bin';
 
   myChart.showLoading();
 
   fetch(dataURL).then(r => r.arrayBuffer()).then(data =>{
     myChart.hideLoading();
+    console.log(data);
 
     const rawData = new Float32Array(data);
 

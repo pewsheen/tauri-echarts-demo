@@ -12,9 +12,9 @@ export default {
         myChart.resize();
       };
 
-      window.setInterval(() => {
-        updateChart(myChart);
-      }, 100);
+      //window.setInterval(() => {
+      //  updateChart(myChart);
+      //}, 100);
     });
   },
 };
