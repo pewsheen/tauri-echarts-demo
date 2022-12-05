@@ -11,7 +11,14 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .register_uri_scheme_protocol("plot", |app, req| {
+            use tauri::http::ResponseBuilder;
+            ResponseBuilder::new()
+                .header("Content-Type", "application/octet-stream")
+                .header("Access-Control-Allow-Origin", "null")
+                .header("Access-Control-Allow-Methods", "*")
+                .body(vec![1; 128])
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

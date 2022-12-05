@@ -3,7 +3,7 @@ import * as echarts from 'echarts';
 export function mountChart(element) {
   const myChart = echarts.init(element);
 
-  const dataURL = 'src/assets/fake-nebula.bin';
+  const dataURL = '/fake-nebula.bin';
 
   const xhr = new XMLHttpRequest();
   xhr.open('GET', dataURL, true);
@@ -80,6 +80,8 @@ export function mountChart(element) {
 
     myChart.setOption(option);
   };
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
   xhr.send();
 
   return myChart;
