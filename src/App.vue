@@ -12,9 +12,10 @@ export default {
         myChart.resize();
       };
 
-      //window.setInterval(() => {
-      //  updateChart(myChart);
-      //}, 100);
+      // TODO Button to control frequency
+      window.setInterval(() => {
+        updateChart(myChart);
+      }, 1000);
     });
   },
 };
