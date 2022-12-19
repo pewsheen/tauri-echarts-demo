@@ -1,6 +1,6 @@
 <script>
 import { onMounted } from 'vue';
-import { mountChart } from './composable/chart.js';
+import { mountChart, updateChart } from './composable/chart.js';
 
 export default {
   name: 'Chart Demo',
@@ -11,6 +11,11 @@ export default {
       window.onresize = () => {
         myChart.resize();
       };
+
+      // TODO Button to control frequency
+      window.setInterval(() => {
+        updateChart(myChart);
+      }, 1000);
     });
   },
 };
